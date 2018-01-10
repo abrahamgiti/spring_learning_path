@@ -4,14 +4,12 @@ import com.fasterxml.jackson.databind.ser.Serializers;
 import com.learning.spring.game.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.*;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import java.text.NumberFormat;
 
 /**
  * Created by rin9790 on 4/01/18.
@@ -19,6 +17,7 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan(basePackages = "com.learning.spring")
 @Import(InfraStructureConfig.class)
+@EnableAspectJAutoProxy
 public class AppConfig {
 
 /*
@@ -40,7 +39,8 @@ public class AppConfig {
     private Team cubs;
 
 
-    @Bean
+    @Bean//(initMethod = "startGame",  destroyMethod = "endGame") // no arguments methods
+    //@Scope("prototype")
     public Game game(){
         BaseballGame baseballGame = new BaseballGame(redSocks, cubs);
         //baseballGame.setDataSource(bDataSource);
@@ -48,6 +48,10 @@ public class AppConfig {
 
     }
 
+    @Bean
+    public NumberFormat nf(){
+        return NumberFormat.getCurrencyInstance();
+    }
 
 
 

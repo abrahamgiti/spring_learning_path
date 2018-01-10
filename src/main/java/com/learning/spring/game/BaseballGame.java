@@ -1,5 +1,7 @@
 package com.learning.spring.game;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.sql.DataSource;
 
 
@@ -32,6 +34,16 @@ public class BaseballGame implements Game
     }
 
     @Override
+    public void setAwayTeam(Team awayTeam) {
+        this.awayTeam = awayTeam;
+    }
+
+    @Override
+    public void setHomeTeam(Team homeTeam) {
+        this.homeTeam = homeTeam;
+    }
+
+    @Override
     public Team getAwayTeam() {
         return null;
     }
@@ -43,6 +55,24 @@ public class BaseballGame implements Game
 
     @Override
     public void playGame() {
-        System.out.println( "Game between " + this.homeTeam.getName() + " vs " + this.awayTeam.getName()  );
+        System.out.println(toString());
     }
+
+    @Override
+    public String toString() {
+        return "Game between " + this.homeTeam.getName() + " vs " + this.awayTeam.getName();
+    }
+
+    @PostConstruct
+    public void startGame() {
+        System.out.println("Playing");
+    }
+
+    @PreDestroy
+    public void endGame() {
+        System.out.println("Sending highlights");
+    }
+
+
+
 }

@@ -9,6 +9,11 @@ public interface Game {
 
     Team getAwayTeam();
 
+    void setHomeTeam(Team team);
+
+
+    void setAwayTeam(Team team);
+
     void playGame();
 
 
